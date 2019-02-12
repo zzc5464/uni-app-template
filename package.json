@@ -15,6 +15,7 @@
     "dev:mp-baidu": "cross-env NODE_ENV=development UNI_PLATFORM=mp-baidu vue-cli-service uni-build --watch",
     "dev:mp-toutiao": "cross-env NODE_ENV=development UNI_PLATFORM=mp-toutiao vue-cli-service uni-build --watch",
     "dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
+    "start": "npm run dev:mp-weixin",
     "info": "node node_modules/@dcloudio/vue-cli-plugin-uni/commands/info.js"
   },
   "dependencies": {
@@ -35,6 +36,8 @@
     "@vue/cli-plugin-babel": "3.3.0",
     "@vue/cli-service": "^3.4.0",
     "babel-plugin-import": "^1.11.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.21"
   },
   "browserslist": [
