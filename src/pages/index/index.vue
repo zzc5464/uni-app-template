@@ -23,6 +23,11 @@ import {TEST} from '@/api';
 			}
 		},
 		onLoad() {
+			this.$store.dispatch('getProvider').then(res => {
+				this.$store.dispatch('getUserInfo').then(_ => {
+					console.log(this.$store.state);
+				})
+			})
 		},
 		methods: {
 			toAbout() {
@@ -31,6 +36,8 @@ import {TEST} from '@/api';
 				});
 			},
 			async getAPI() {
+				console.log(this.$store.state);
+				
 				const data = await TEST({
 					id: 1
 				})
@@ -43,19 +50,12 @@ import {TEST} from '@/api';
 		}
 	}
 </script>
-
-<style>
-	.content {
-		text-align: center;
-		height: 400upx;
+<style lang="less" scoped>
+@import url(~@/common/less/common.less);
+.content {
+	text-align: center;
+	image {
+		width: 750*200/375upx;
 	}
-    .logo{
-        height: 200upx;
-        width: 200upx;
-        margin-top: 200upx;
-    }
-	.title {
-		font-size: 36upx;
-		color: #8f8f94;
-	}
+}
 </style>

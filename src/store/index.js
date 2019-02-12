@@ -5,14 +5,14 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	state: {
-		hasLogin: false,
-		loginProvider: "",
-		openid: null
+		provider: '', // 服务提供商 
+		hasLogin: false, // 是否登录
+		openid: null,
+		userInfo: null, // 用户的信息
 	},
 	mutations: {
-		login(state, provider) {
+		login(state) {
 			state.hasLogin = true;
-			state.loginProvider = provider;
 		},
 		logout(state) {
 			state.hasLogin = false
@@ -20,35 +20,78 @@ const store = new Vuex.Store({
 		},
 		setOpenid(state, openid) {
 			state.openid = openid
+		},
+		setProvider(state,provider) {
+			state.provider = provider
+		},
+		setUserInfo(state,userInfo) {
+			state.userInfo = userInfo
 		}
 	},
 	actions: {
-		// lazy loading openid
-		getUserOpenId: async function ({
-			commit,
-			state
-		}) {
-			return await new Promise((resolve, reject) => {
-				if (state.openid) {
-					resolve(state.openid)
-				} else {
-					uni.login({
-						success: (data) => {
-							commit('login')
-							setTimeout(function () { //模拟异步请求服务器获取 openid
-								const openid = '123456789'
-								console.log('uni.request mock openid[' + openid + ']');
-								commit('setOpenid', openid)
-								resolve(openid)
-							}, 1000)
-						},
-						fail: (err) => {
-							console.log('uni.login 接口调用失败，将无法正常使用开放接口等服务', err)
-							reject(err)
+		getProvider({commit,state}) { // 获取服务供应商
+			return new Promise((res, req) => {
+				if(state.provider) {
+					res(state.provider[0])
+				}else {
+					uni.getProvider({
+						service: 'oauth',
+						success(info) {
+							const {errMsg , provider } = info
+							if(errMsg === 'getProvider:ok') {
+								commit('setProvider',provider[0])
+								res(provider[0])
+							}else {
+								req(errMsg)
+							}
 						}
 					})
 				}
+			});
+		},
+		userLogin({commit,state}) { // 登录获取openId
+			const {provider} = state
+			return new Promise((res,rej) => {
+				if(!provider) {
+					rej()
+					return
+				}
+				uni.login({
+					provider,
+					success(data) {
+						if (data.errMsg == 'login:ok') {
+							const openid = data.code
+							commit('login')
+							commit('setOpenid', openid)
+							res(openid)
+						}
+					},
+					fail: (err) => {
+						console.log('uni.login 接口调用失败，将无法正常使用开放接口等服务', err)
+						rej(err)
+					}
+				})
 			})
+		},
+		getUserInfo({
+			state,
+			commit
+		}) {
+			return new Promise((res, rej) => {
+				const {provider} = state
+				if (state.userInfo === null) {
+					uni.getUserInfo({
+						provider,
+						success(userInfo) {
+							commit('setUserInfo',userInfo)
+						}
+					});
+				} else {
+					res(state.userInfo)
+				}
+
+			})
+
 		}
 	}
 })

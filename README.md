@@ -18,3 +18,39 @@
 └─pages.json            配置页面路由、导航条、选项卡等页面类信息
     
 ```
+
+## 基本使用
+### 引用外部js
+`import utils from '@/common/utils';`
+### 引用外部less
+样式tips: 
+基准750*目标样式/设计稿尺寸
+比如设计稿375,盒子大小200
+`750*200/375upx`
+```html
+<style lang="less" scoped>
+@import url(~@/common/less/common.less);
+.content {
+	text-align: center;
+	image {
+		width: 750*200/375upx;
+	}
+}
+</style>
+```
+### 页面跳转
+- a标签形式
+```vue
+<navigator url="/pages/about/index?params=1" hover-class="navigator-hover">
+  <button type="default">跳转到新页面</button>
+</navigator>
+```
+- 动态路由
+```vue
+<button class="mini-btn" type="warn" size="mini" @click="toAbout">动态路由</button>
+toAbout() {
+  uni.navigateTo({
+    url: '/pages/about/index?params=1'
+  });
+},
+```
