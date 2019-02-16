@@ -54,3 +54,28 @@ toAbout() {
   });
 },
 ```
+## 客服系统
+```vue
+<button type="default" open-type="contact">客服</button>
+```
+### 其他属性
+当按钮设置为 `open-type="contact"` 时会生效的属性
+- show-message-card
+会在接入客服的时候发送当前小程序
+```
+<button type="default" show-message-card open-type="contact">客服</button>
+```
+ 
+session-from="base"
+
+[客服消息后台接口文档](https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/customer-message/receive.html)
+[小程序后端API](https://developers.weixin.qq.com/miniprogram/dev/framework/server-ability/backend-api.html)
+
+## Tips
+当某个页面被设置成Tabbar时，必须使用`uni.switchTab`进行切换`uni.navigateTo`无效
+如果是a标签跳转的可以将`open-type`设置成`open-type="switchTab"`
+```vue
+<navigator url="/pages/about/index?params=1" open-type="switchTab" hover-class="navigator-hover">
+  <button type="default">切换switch</button>
+</navigator>
+```

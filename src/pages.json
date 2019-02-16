@@ -1,6 +1,38 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			
+			"path": "pages/HM-shophome/HM-shophome",
+			"style": {
+				"navigationBarTitleText": "阿斯丹顿",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/article-list/article-list",
+			"style": {
+				"navigationBarTitleText": "精选好文",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/mehaotian-shake/mehaotian-shake",
+			"style": {
+				"navigationBarTitleText": "摇一摇抽奖"
+			}
+		},
+		{
+			"path": "pages/article-detail/article-detail",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		},
+		{
 			"path": "pages/authorization/index",
 			"style": {
 				"navigationBarTitleText": "登陆授权"
@@ -9,24 +41,67 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页2"
 			}
 		},
+		{
+			"path": "pages/product-list/product-list",
+			"style": {
+				"navigationBarTitleText": "优选"
+			}
+		},
+		{
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分类"
+			}
+		},
+
+
+
 		{
 			"path": "pages/about/index",
 			"style": {
 				"navigationBarTitleText": "其他"
 			}
+		},
+		{
+			"path": "pages/master/list",
+			"style": {
+				"navigationBarTitleText": "大师列表"
+			}
+		},
+		{
+			"path": "pages/master/detail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
 		}
 	],
 	"tabBar": {
-		"list": [{
-			"pagePath": "pages/index/index",
-			"text": "首页"
-		},{
-			"pagePath": "pages/about/index",
-			"text": "其他"
-		}]
+		"selectedColor": "#fb6943",
+		"color": "#333",
+		"list": [
+			{
+				
+				"pagePath": "pages/HM-shophome/HM-shophome",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/product-list/product-list",
+				"text": "优选"
+			}, 
+			{
+				"pagePath": "pages/me/me",
+				"text": "我的"
+			}
+		]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

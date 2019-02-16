@@ -9,6 +9,7 @@ const store = new Vuex.Store({
 		hasLogin: false, // 是否登录
 		openid: null,
 		userInfo: null, // 用户的信息
+		platform: 'devtools', // 当前开发环境,默认为小程序
 	},
 	mutations: {
 		login(state) {
@@ -26,6 +27,9 @@ const store = new Vuex.Store({
 		},
 		setUserInfo(state,userInfo) {
 			state.userInfo = userInfo
+		},
+		getPlatform(state) { // 获取当前的开发环境
+			state.platform = uni.getSystemInfoSync().platform
 		}
 	},
 	actions: {
@@ -73,7 +77,7 @@ const store = new Vuex.Store({
 				})
 			})
 		},
-		getUserInfo({
+		getUserInfo({ // 获取用户的信息
 			state,
 			commit
 		}) {
@@ -92,7 +96,8 @@ const store = new Vuex.Store({
 
 			})
 
-		}
+		},
+	
 	}
 })
 

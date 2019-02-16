@@ -1,12 +1,16 @@
 <template>
+
 	<view class="content">
-        <image class="logo" src="../../static/logo.png"></image>
+		<image class="logo" src="../../static/logo.png"></image>
 		<Demo text='这是demo组件' />
 		<view>
-            <button class="mini-btn" type="warn" size="mini" @click="toAbout">动态路由</button>
-        </view>
-		<navigator url="/pages/about/index?params=1" hover-class="navigator-hover">
+			<button class="mini-btn" type="warn" size="mini" @click="toAbout">动态路由</button>
+		</view>
+		<navigator url="/pages/master/list?params=1" hover-class="navigator-hover">
 			<button type="default">跳转到新页面</button>
+		</navigator>
+		<navigator url="/pages/about/index?params=1" open-type="switchTab" hover-class="navigator-hover">
+			<button type="default">切换到about</button>
 		</navigator>
 		<button class="mini-btn" type="warn" size="mini" @click="getAPI">请求数据</button>
 	</view>
@@ -23,15 +27,20 @@ import {TEST} from '@/api';
 			}
 		},
 		onLoad() {
-			this.$store.dispatch('getProvider').then(res => {
-				this.$store.dispatch('getUserInfo').then(_ => {
-					console.log(this.$store.state);
+			if(!this.$store.state.userInfo) {
+				this.$store.dispatch('getProvider').then(res => {
+					this.$store.dispatch('getUserInfo').then(_ => {
+					})
 				})
-			})
+				return
+			}
+			console.log(this.$store.state);
+
+			
 		},
 		methods: {
 			toAbout() {
-				uni.navigateTo({
+				uni.switchTab({
 					url: '/pages/about/index?params=1'
 				});
 			},
@@ -50,12 +59,17 @@ import {TEST} from '@/api';
 		}
 	}
 </script>
-<style lang="less" scoped>
-@import url(~@/common/less/common.less);
+<style lang="scss" scoped>
+// @import url(~@/common/less/common.less);
+// scss 转换函数
+@function C($n) { 
+  @return 750/375*$n; 
+}
+
 .content {
 	text-align: center;
 	image {
-		width: 750*200/375upx;
+		width: C(200upx);
 	}
 }
 </style>

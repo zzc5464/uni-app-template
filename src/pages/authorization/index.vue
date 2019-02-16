@@ -1,14 +1,14 @@
 <template>
   <view class="content">
-    <button :loading="login" type="primary" open-type="getUserInfo" @getuserinfo="getInfo">登陆授权</button>
+    <button type="primary" open-type="getUserInfo" @getuserinfo="getInfo">登陆授权</button>
     <button type="default" open-type="feedback">反馈</button>
+    <button type="default" open-type="contact" show-message-card session-from="base">客服</button>
   </view>
 </template>
 <script>
 export default {
   data() {
     return {
-      login: false
     };
   },
   onLoad() {
@@ -33,6 +33,10 @@ export default {
       uni.reLaunch({
         url: "/pages/index/index"
       });
+    },
+    handlePhone(phone) {
+      console.log(phone);
+      
     }
   }
 };
@@ -40,7 +44,10 @@ export default {
 <style lang="less" scoped>
 .content {
   display: flex;
-  height: 100%;
   flex-flow: column nowrap;
+  padding-top: 40vh;
+  button {
+    margin-top: 5vh;
+  }
 }
 </style>
